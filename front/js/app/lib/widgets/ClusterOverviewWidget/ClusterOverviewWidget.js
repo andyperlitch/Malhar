@@ -91,15 +91,50 @@ var ClusterOverviewWidget = BaseView.extend({
         },
 
         {
-            label: DT.text('running / pending / failed / finished / killed / submitted'),
+            label: DT.text('running'),
             key: 'numAppsRunning',
             value: function(numAppsRunning, attrs) {
-                return '<span class="status-running">' + formatters.commaGroups(attrs.numAppsRunning) + '</span> / ' +
-                       '<span class="status-pending-deploy">' + formatters.commaGroups(attrs.numAppsPending) + '</span> / ' +
-                       '<span class="status-failed">' + formatters.commaGroups(attrs.numAppsFailed) + '</span> / ' +
-                       '<span class="status-finished">' + formatters.commaGroups(attrs.numAppsFinished) + '</span> / ' +
-                       '<span class="status-killed">' + formatters.commaGroups(attrs.numAppsKilled) + '</span> / ' +
-                       '<span class="status-submitted">' + formatters.commaGroups(attrs.numAppsSubmitted) + '</span>';
+                return '<span class="status-running">' + formatters.commaGroups(attrs.numAppsRunning) + '</span>';
+            }
+        },
+
+        {
+            label: DT.text('pending'),
+            key: 'numAppsPending',
+            value: function(numAppsRunning, attrs) {
+                return '<span class="status-pending-deploy">' + formatters.commaGroups(attrs.numAppsPending) + '</span>';
+            }
+        },
+
+        {
+            label: DT.text('failed'),
+            key: 'numAppsFailed',
+            value: function(numAppsFailed, attrs) {
+                return '<span class="status-failed">' + formatters.commaGroups(attrs.numAppsFailed) + '</span>';
+            }
+        },
+
+        {
+            label: DT.text('finished'),
+            key: 'numAppsFinished',
+            value: function(numAppsRunning, attrs) {
+                return '<span class="status-finished">' + formatters.commaGroups(attrs.numAppsFinished) + '</span>';
+            }
+        },
+
+        {
+            label: DT.text('killed'),
+            key: 'numAppsKilled',
+            value: function(numAppsRunning, attrs) {
+                return '<span class="status-killed">' + formatters.commaGroups(attrs.numAppsKilled) + '</span>';
+            }
+        },
+
+        {
+            label: DT.text('submitted'),
+            key: 'numAppsSubmitted',
+            value: function(numAppsRunning, attrs) {
+                return '<span class="status-submitted">' + formatters.commaGroups(attrs.numAppsSubmitted) + '</span>';
             }
         },
         
