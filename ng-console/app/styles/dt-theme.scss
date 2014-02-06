@@ -1,0 +1,18 @@
+$navbar-inverse-bg: #11506D;
+
+$navbar-inverse-link-color: #EFEFEF;
+
+.navbar-brand {
+    background: url('../images/main_banner.png') no-repeat 0 0 scroll;
+    width:218px;
+    height:48px;
+    color: transparent;
+    overflow: hidden;
+    text-indent: -1000px;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+.navbar-inverse .navbar-nav > li > a {
+    font-weight: 200;
+    letter-spacing: 1px;    
+}
