@@ -11,10 +11,13 @@
     "angular-cookies": "1.2.6",
     "angular-sanitize": "1.2.6",
     "angular-route": "1.2.6",
-    "angular-ui-dashboard": "~0.0.4"
+    "angular-ui-dashboard": "git@github.com:nickholub/angular-ui-dashboard.git#master"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",
     "angular-scenario": "1.2.6"
+  },
+  "resolutions": {
+    "angular": "1.2.6"
   }
 }

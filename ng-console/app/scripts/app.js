@@ -4,7 +4,8 @@ angular.module('ngConsoleApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'ui.dashboard'
 ])
   .config(function ($routeProvider) {
     $routeProvider

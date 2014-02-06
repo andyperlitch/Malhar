@@ -3,6 +3,7 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 @import 'sass-bootstrap/lib/bootstrap';
 @import 'dt-theme.scss';
 @import 'sass-bootstrap/lib/bootstrap';
+@import '/bower_components/angular-ui-dashboard/dist/angular-ui-dashboard.css';
 
 .browsehappy {
     margin: 0.2em 0;
@@ -13,7 +14,7 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
 /* Space out content a bit */
 body {
-    padding-top: 20px;
+    padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -90,4 +91,8 @@ body {
     .jumbotron {
         border-bottom: 0;
     }
+}
+
+.dashboard-container {
+  margin: 20px;
 }
