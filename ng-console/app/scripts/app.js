@@ -9,9 +9,18 @@ angular.module('ngConsoleApp', [
 ])
   .config(function ($routeProvider) {
     $routeProvider
+      .when('/config', {
+        templateUrl: 'views/config.html'
+      })
+      .when('/ops', {
+        templateUrl: 'views/ops.html'
+      })
+      .when('/dev', {
+        templateUrl: 'views/dev.html'
+      })
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        templateUrl: 'views/main.html'
       })
       .otherwise({
         redirectTo: '/'
