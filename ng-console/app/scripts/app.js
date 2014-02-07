@@ -13,6 +13,7 @@ angular.module('ngConsoleApp', [
         templateUrl: 'views/config.html'
       })
       .when('/ops', {
+        controller: 'OpsCtrl',
         templateUrl: 'views/ops.html'
       })
       .when('/dev', {
