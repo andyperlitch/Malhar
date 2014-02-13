@@ -69,4 +69,5 @@ exports.resourceTopic = makeResourceFn('topics');
 exports.resourceAction = makeResourceFn('actions');
 exports.subscribeToTopic = subscribeToTopic;
 exports.fetchError = fetchError;
+exports.quietFetchError = quietFetchError;
 exports.responseFormatError = responseFormatError;
