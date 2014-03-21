@@ -67,6 +67,11 @@ public class HttpInputOperator extends SimpleSinglePortInputOperator<Map<String,
   private URI resourceUrl;
   private transient Client wsClient;
   private transient WebResource resource;
+  private long pollInterval = 500;
+
+  public void setPollInterval(long pollInterval) {
+      this.pollInterval = pollInterval;
+  }
 
   public void setUrl(URI u)
   {
@@ -140,7 +145,7 @@ public class HttpInputOperator extends SimpleSinglePortInputOperator<Map<String,
       }
 
       try {
-        Thread.sleep(500);
+        Thread.sleep(pollInterval);
       }
       catch (InterruptedException e) {
         LOG.info("Exiting IO loop {}.", e.toString());
