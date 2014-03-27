@@ -83,7 +83,8 @@ A "theme" is really just a file that overrides Twitter Bootstrap and other DataT
 
     grunt serve --theme=[YOUR_THEME_FILENAME_NO_EXTENSION]
 
-
+### Theme Overrides
+On rare occasion, it is useful to have a final theme-agnostic file to place important overrides. These should be placed into `/app/styles/theme-overrides.less`. The only use-case for this as of this writing is to override the path to Twitter Bootstrap fonts (`@icon-font-path`) from the theme file, which often has the default value set.
 
 
 
