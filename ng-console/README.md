@@ -54,6 +54,14 @@ To install the yeoman-angular generator, run:
 
     npm install -g generator-angular
 
+
+### Controllers
+To create a custom controller, run:
+
+    yo angular:controller controller-name
+
+This will create `/app/scripts/controllers/controller-name.js` and `/test/spec/controllers/controller-name.js`. Note that the actual name of the injectable will be converted to CamelCase and will add "Ctrl" at the end, so `my-controller-name` will become `MyControllerNameCtrl` in the code.
+
 ### Directives
 To create a custom directive, run:
 
