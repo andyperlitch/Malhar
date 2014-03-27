@@ -38,9 +38,9 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
       },
-      compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
+      less: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['concat:less','less:development']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -143,39 +143,38 @@ module.exports = function (grunt) {
     'bower-install': {
       app: {
         html: '<%= yeoman.app %>/index.html',
-        ignorePath: '<%= yeoman.app %>/'
-      }
+        ignorePath: '<%= yeoman.app %>/',
+        exclude: ['bower_components/bootstrap/dist/css/bootstrap.css']
+      },
     },
 
-
-
-
-    // Compiles Sass to CSS and generates necessary files if requested
-    compass: {
-      options: {
-        sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        generatedImagesDir: '.tmp/images/generated',
-        imagesDir: '<%= yeoman.app %>/images',
-        javascriptsDir: '<%= yeoman.app %>/scripts',
-        fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: '<%= yeoman.app %>/bower_components',
-        httpImagesPath: '/images',
-        httpGeneratedImagesPath: '/images/generated',
-        httpFontsPath: '/styles/fonts',
-        relativeAssets: false,
-        assetCacheBuster: false,
-        raw: 'Sass::Script::Number.precision = 10\n',
-        debugInfo: true
-      },
-      dist: {
+    // Compile less commands
+    less: {
+      theme: 'default',
+      local: {
         options: {
-          generatedImagesDir: '<%= yeoman.dist %>/images/generated'
+          paths: ['<%= yeoman.app %>/styles'],
+          sourceMap: true
+        },
+        files: {
+          '<%= yeoman.app %>/styles/main.css': ['.tmp/styles/main.less']
         }
       },
-      server: {
+      development: {
         options: {
-          debugInfo: true
+          paths: ['<%= yeoman.app %>/styles'],
+          sourceMap: true
+        },
+        files: {
+          '.tmp/styles/main.css': ['.tmp/styles/main.less']
+        }
+      },
+      production: {
+        options: {
+          paths: ['<%= yeoman.app %>/styles']
+        },
+        files: {
+          '.tmp/styles/main.css': ['.tmp/styles/main.less']
         }
       }
     },
@@ -306,13 +305,13 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'compass:server'
+        // 'compass:server'
       ],
       test: [
-        'compass'
+        // 'compass'
       ],
       dist: [
-        'compass:dist',
+        // 'compass:dist',
         'imagemin',
         'svgmin'
       ]
@@ -340,9 +339,12 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-    // concat: {
-    //   dist: {}
-    // },
+    concat: {
+      less: {
+        src: ['<%= yeoman.app %>/styles/main.less', '<%= yeoman.app %>/styles/themes/<%= less.theme %>.less'],
+        dest: '.tmp/styles/main.less'
+      }
+    },
 
     // Test settings
     karma: {
