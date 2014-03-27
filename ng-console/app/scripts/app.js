@@ -22,8 +22,7 @@ angular.module('ngConsoleApp', [
       templateUrl: 'views/dev.html'
     })
     .when('/', {
-      controller: 'MainCtrl',
-      templateUrl: 'views/main.html'
+      redirectTo: '/ops'
     })
     .otherwise({
       redirectTo: '/config'
