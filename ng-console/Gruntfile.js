@@ -344,7 +344,7 @@ module.exports = function (grunt) {
     // },
     concat: {
       less: {
-        src: ['<%= yeoman.app %>/styles/main.less', '<%= yeoman.app %>/styles/themes/<%= less.theme %>.less'],
+        src: ['<%= yeoman.app %>/styles/main.less', '<%= yeoman.app %>/styles/themes/<%= less.theme %>.less', '<%= yeoman.app %>/styles/theme-overrides.less'],
         dest: '.tmp/styles/main.less'
       }
     },
