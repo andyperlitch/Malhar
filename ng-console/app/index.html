@@ -25,7 +25,7 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="navbar-top" bs-navbar>
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -39,9 +39,9 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
               <li><a href="#/info"><span class="glyphicon glyphicon-info-sign"></span></a></li>
-              <li><a href="#/config">Configuration</a></li>
-              <li><a href="#/ops">Operations</a></li>
-              <li><a href="#/dev">Development</a></li>
+              <li data-match-route="/config"><a href="#/config">Configuration</a></li>
+              <li data-match-route="/ops"><a href="#/ops">Operations</a></li>
+              <li data-match-route="/dev"><a href="#/dev">Development</a></li>
             </ul>
             <!-- <form class="navbar-form navbar-right">
               <input type="text" class="form-control" placeholder="Search...">

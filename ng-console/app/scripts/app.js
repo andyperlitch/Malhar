@@ -5,25 +5,26 @@ angular.module('ngConsoleApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.dashboard'
+  'ui.dashboard',
+  'mgcrea.ngStrap.navbar'
 ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/config', {
-        templateUrl: 'views/config.html'
-      })
-      .when('/ops', {
-        controller: 'OpsCtrl',
-        templateUrl: 'views/ops.html'
-      })
-      .when('/dev', {
-        templateUrl: 'views/dev.html'
-      })
-      .when('/', {
-        controller: 'MainCtrl',
-        templateUrl: 'views/main.html'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+.config(function ($routeProvider) {
+  $routeProvider
+    .when('/config', {
+      templateUrl: 'views/config.html'
+    })
+    .when('/ops', {
+      controller: 'OpsCtrl',
+      templateUrl: 'views/ops.html'
+    })
+    .when('/dev', {
+      templateUrl: 'views/dev.html'
+    })
+    .when('/', {
+      controller: 'MainCtrl',
+      templateUrl: 'views/main.html'
+    })
+    .otherwise({
+      redirectTo: '/config'
+    });
+});
