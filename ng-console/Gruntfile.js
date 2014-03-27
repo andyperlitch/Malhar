@@ -166,7 +166,7 @@ module.exports = function (grunt) {
           sourceMap: true
         },
         files: {
-          '.tmp/styles/main.css': ['.tmp/styles/main.less']
+          '.tmp/styles/main.css': ['<%= yeoman.app %>/styles/main.less']
         }
       },
       production: {
