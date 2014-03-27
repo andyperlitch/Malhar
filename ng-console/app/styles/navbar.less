@@ -9,9 +9,9 @@
         text-shadow:0 1px 1px @nav-text-shadow,0 1px 1px @nav-text-shadow,0 1px 1px @nav-text-shadow;
 
     }
-    li.active {
+    li.active, li.open {
         background-color: transparent;
-        a {
+        > a {
             background-color: rgba(0, 0, 0, 0.1);
             box-shadow: inset 0 5px (@navbar-height/2) 0px rgba(0,0,0,0.7); 
         }
@@ -31,6 +31,6 @@
     font-weight: 200;
     letter-spacing: 1px;    
 }
-body {
-    padding-top: @navbar-height;
+.dropdown-menu {
+    outline: none;
 }

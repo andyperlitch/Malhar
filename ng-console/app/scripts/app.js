@@ -6,7 +6,8 @@ angular.module('ngConsoleApp', [
   'ngSanitize',
   'ngRoute',
   'ui.dashboard',
-  'mgcrea.ngStrap.navbar'
+  'mgcrea.ngStrap.navbar',
+  'mgcrea.ngStrap.dropdown'
 ])
 .config(function ($routeProvider) {
   $routeProvider
