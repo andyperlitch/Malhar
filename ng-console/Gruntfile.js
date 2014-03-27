@@ -166,7 +166,7 @@ module.exports = function (grunt) {
           sourceMap: true
         },
         files: {
-          '.tmp/styles/main.css': ['<%= yeoman.app %>/styles/main.less']
+          '.tmp/styles/main.css': ['.tmp/styles/main.less']
         }
       },
       production: {
@@ -305,7 +305,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        // 'compass:server'
+        'less:development'
       ],
       test: [
         // 'compass'
@@ -364,6 +364,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'bower-install',
+      'concat:less',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
