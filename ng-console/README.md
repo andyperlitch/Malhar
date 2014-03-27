@@ -18,6 +18,10 @@ Use the `serve` grunt task:
 
     grunt serve
 
+Add the `--force` flag to this command to prevent jshint errors and other failures from stopping the watch commands:
+
+    grunt serve --force
+
 
 
 ## Working with Dependencies
@@ -56,3 +60,25 @@ To create a custom directive, run:
     yo angular:directive DIRECTIVE-NAME
 
 By convention, names should be all lower-case with dashes, eg. ng-navbar. This will place a new file into `/app/scripts/directives/` and will also add the appropriate script to `/app/index.html`.
+
+
+
+
+## Styles
+This project uses the [LESS CSS pre-processor](http://lesscss.org/) to organize its styling. A "manifest" file is located at `app/styles/main.less`, which @imports all style dependencies (eg. from a bower component) and custom DataTorrent UI component styles (eg. `/app/styles/navbar.less`).
+
+### Variables & Mixins
+Whenever possible, custom DataTorrent UI component styles should use variables and mixins from the Twitter Bootstrap library. This makes theming/skinning as easy as overriding these variables. When additional variables are required specifically for DataTorrent UI components, they should be declared in `/app/styles/main.less` with appropriate defaults.
+
+### Themes
+A "theme" is really just a file that overrides Twitter Bootstrap and other DataTorrent-UI-specific variables (defined in `/app/styles/main.less`). To create a new theme, create a `.less` file inside `/app/styles/themes/` directory, then run:
+
+    grunt serve --theme=[YOUR_THEME_FILENAME_NO_EXTENSION]
+
+
+
+
+
+
+
+
