@@ -2,6 +2,6 @@
 
 angular.module('ngConsoleApp')
 
-  .controller('MainCtrl', function ($scope) {
-    
+  .controller('MainCtrl', function ($scope,breadcrumbs) {
+    $scope.breadcrumbs = breadcrumbs;
   });
