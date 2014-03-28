@@ -17,8 +17,6 @@ package com.datatorrent.lib.db;
 
 import java.io.IOException;
 
-import javax.validation.constraints.Min;
-
 import com.datatorrent.api.BaseOperator;
 import com.datatorrent.api.Context.OperatorContext;
 import com.datatorrent.api.DAG;
@@ -40,9 +38,6 @@ public abstract class AbstractTransactionableStoreOutputOperator<T, S extends Tr
   protected Integer operatorId;
   protected long currentWindowId = -1;
   protected long committedWindowId = -1;
-  @Min(0)
-  protected int numOfCommitRetries;
-
   /**
    * The input port
    */
@@ -58,11 +53,6 @@ public abstract class AbstractTransactionableStoreOutputOperator<T, S extends Tr
     }
 
   };
-
-  public AbstractTransactionableStoreOutputOperator()
-  {
-    numOfCommitRetries = 0;
-  }
 
   /**
    * Gets the store
@@ -88,10 +78,9 @@ public abstract class AbstractTransactionableStoreOutputOperator<T, S extends Tr
   public void setup(OperatorContext context)
   {
     try {
+      store.connect();
       appId = context.getValue(DAG.APPLICATION_ID);
       operatorId = context.getId();
-
-      store.connect();
       committedWindowId = store.getCommittedWindowId(appId, operatorId);
     }
     catch (IOException ex) {
@@ -112,65 +101,18 @@ public abstract class AbstractTransactionableStoreOutputOperator<T, S extends Tr
       if (store.isInTransaction()) {
         store.rollbackTransaction();
       }
+      store.disconnect();
     }
-    catch (Transactionable.OperationFailedException ex) {
+    catch (IOException ex) {
       throw new RuntimeException(ex);
-    }
-    finally {
-      try {
-        store.disconnect();
-      }
-      catch (IOException e) {
-        throw new RuntimeException(e);
-      }
     }
   }
 
   /**
-   * Processes the incoming tuple.  Implementations need to provide what to do with the tuple (how to store the tuple)
+   * Processes the incoming tuple. Implementations need to provide what to do with the tuple (how to store the tuple)
    *
    * @param tuple
    */
   public abstract void processTuple(T tuple);
-
-  /**
-   * Sets the number of times commit operation is re-tried if it fails.<br/>
-   * <b>Default:</b> 0
-   *
-   * @param retries no. of retries.
-   */
-  public void setNumOfCommitRetries(int retries)
-  {
-    this.numOfCommitRetries = retries;
-  }
-
-  protected void commit()
-  {
-    for (int i = 0; i <= numOfCommitRetries; i++) {
-      try {
-        store.commitTransaction();
-        return;
-      }
-      catch (Transactionable.OperationFailedException e) {
-        if (i == numOfCommitRetries) {
-          try {
-            store.rollbackTransaction();
-          }
-          catch (Transactionable.OperationFailedException ex) {
-            throw new RuntimeException(ex);
-          }
-          finally {
-            try {
-              store.disconnect();
-            }
-            catch (IOException ioEx) {
-              throw new RuntimeException(ioEx);
-            }
-          }
-          throw new RuntimeException(e);
-        }
-      }
-    }
-  }
 
 }

@@ -17,19 +17,20 @@ package com.datatorrent.lib.util;
 
 import com.datatorrent.api.*;
 import com.datatorrent.api.Context.OperatorContext;
-import com.datatorrent.api.Partitionable.Partition;
+import com.datatorrent.api.Partitioner.Partition;
 import com.datatorrent.api.annotation.InputPortFieldAnnotation;
 import com.datatorrent.api.annotation.OutputPortFieldAnnotation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>AlertEscalationOperator class.</p>
  *
  * @since 0.3.2
  */
-public class AlertEscalationOperator extends BaseOperator implements Partitionable<AlertEscalationOperator>
+public class AlertEscalationOperator extends BaseOperator implements Partitioner<AlertEscalationOperator>
 {
   protected long lastAlertTimeStamp = -1;
   protected long inAlertSince = -1;
@@ -108,6 +109,11 @@ public class AlertEscalationOperator extends BaseOperator implements Partitionab
   }
 
   @Override
+  public void partitioned(Map<Integer, Partition<AlertEscalationOperator>> partitions)
+  {
+  }
+
+  @Override
   public Collection<Partition<AlertEscalationOperator>> definePartitions(Collection<Partition<AlertEscalationOperator>> partitions, int incrementalCapacity)
   {
     // prevent partitioning
@@ -119,8 +125,9 @@ public class AlertEscalationOperator extends BaseOperator implements Partitionab
   @Override
   public void setup(OperatorContext context)
   {
-    if(context != null)
+    if(context != null) {
       context.getAttributes().put(OperatorContext.AUTO_RECORD, true);
+    }
   }
 
 }
