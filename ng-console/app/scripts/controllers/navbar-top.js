@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('ngConsoleApp')
-  .controller('NavbarTopCtrl', function () {
-    
-  });
+.controller('NavbarTopCtrl', function () {
+
+});

@@ -31,7 +31,7 @@ angular.module('ngConsoleApp', [
     })
     .when('/dev/build-an-etl-app', {
       controller: 'BuildEtlCtrl',
-      templateUrl: 'views/etl.html',
+      templateUrl: 'views/etl/etl.html',
       label: 'Build an ETL App'
     })
     .otherwise({

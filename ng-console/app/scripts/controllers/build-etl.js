@@ -71,7 +71,7 @@ angular.module('ngConsoleApp')
     $scope.editDataSource = function(source) {
 
       var modalInstance = $modal.open({
-        templateUrl: 'views/etl-edit-source.html',
+        templateUrl: 'views/etl/edit-source.html',
         controller: 'EtlEditSourceCtrl',
         resolve: {
           source: function () {
@@ -81,7 +81,7 @@ angular.module('ngConsoleApp')
             return $scope.sources;
           },
           sourceTypes: function() {
-            return $scope.sourceTypes
+            return $scope.sourceTypes;
           }
         }
       });
