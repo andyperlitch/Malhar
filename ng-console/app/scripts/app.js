@@ -34,6 +34,11 @@ angular.module('ngConsoleApp', [
       templateUrl: 'views/etl/etl.html',
       label: 'Build an ETL App'
     })
+    .when('/dev/analyze-apache-log', {
+      controller: 'ApacheLogMainCtrl',
+      templateUrl: 'views/apache-log/apache-log.html',
+      label: 'Analyze an Apache Log'
+    })
     .otherwise({
       redirectTo: '/config'
     });
