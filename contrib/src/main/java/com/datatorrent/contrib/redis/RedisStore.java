@@ -15,13 +15,17 @@
  */
 package com.datatorrent.contrib.redis;
 
-import com.datatorrent.lib.db.TransactionableKeyValueStore;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
+
+import com.datatorrent.lib.db.TransactionableKeyValueStore;
 
 /**
  * Provides the implementation of a Redis store.
@@ -133,9 +137,9 @@ public class RedisStore implements TransactionableKeyValueStore
   }
 
   @Override
-  public boolean isConnected()
+  public boolean connected()
   {
-    return jedis.isConnected();
+    return jedis != null && jedis.isConnected();
   }
 
   @Override
@@ -174,6 +178,9 @@ public class RedisStore implements TransactionableKeyValueStore
   @Override
   public Object get(Object key)
   {
+    if (isInTransaction()) {
+      throw new RuntimeException("Cannot call get when in redis transaction");
+    }
     return jedis.get(key.toString());
   }
 
@@ -188,21 +195,37 @@ public class RedisStore implements TransactionableKeyValueStore
   @Override
   public List<Object> getAll(List<Object> keys)
   {
-    return (List<Object>)(List<?>)jedis.mget(keys.toArray(new String[] {}));
+    if (isInTransaction()) {
+      throw new RuntimeException("Cannot call get when in redis transaction");
+    }
+    return (List<Object>) (List<?>) jedis.mget(keys.toArray(new String[]{}));
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
   public void put(Object key, Object value)
   {
-    if (value instanceof Map) {
-      jedis.hmset(host, (Map)value);
+    if (isInTransaction()) {
+      if (value instanceof Map) {
+        transaction.hmset(key.toString(), (Map) value);
+      }
+      else {
+        transaction.set(key.toString(), value.toString());
+      }
+      if (keyExpiryTime != -1) {
+        transaction.expire(key.toString(), keyExpiryTime);
+      }
     }
     else {
-      jedis.set(key.toString(), value.toString());
-    }
-    if (keyExpiryTime != -1) {
-      jedis.expire(key.toString(), keyExpiryTime);
+      if (value instanceof Map) {
+        jedis.hmset(key.toString(), (Map) value);
+      }
+      else {
+        jedis.set(key.toString(), value.toString());
+      }
+      if (keyExpiryTime != -1) {
+        jedis.expire(key.toString(), keyExpiryTime);
+      }
     }
   }
 
@@ -214,13 +237,23 @@ public class RedisStore implements TransactionableKeyValueStore
       params.add(entry.getKey().toString());
       params.add(entry.getValue().toString());
     }
-    jedis.mset(params.toArray(new String[] {}));
+    if (isInTransaction()) {
+      transaction.mset(params.toArray(new String[]{}));
+    }
+    else {
+      jedis.mset(params.toArray(new String[]{}));
+    }
   }
 
   @Override
   public void remove(Object key)
   {
-    jedis.del(key.toString());
+    if (isInTransaction()) {
+      transaction.del(key.toString());
+    }
+    else {
+      jedis.del(key.toString());
+    }
   }
 
   /**
@@ -232,9 +265,17 @@ public class RedisStore implements TransactionableKeyValueStore
    */
   public void hincrByFloat(String key, String field, double doubleValue)
   {
-    jedis.hincrByFloat(key, field, doubleValue);
-    if (keyExpiryTime != -1) {
-      jedis.expire(key, keyExpiryTime);
+    if (isInTransaction()) {
+      transaction.hincrByFloat(key, field, doubleValue);
+      if (keyExpiryTime != -1) {
+        transaction.expire(key, keyExpiryTime);
+      }
+    }
+    else {
+      jedis.hincrByFloat(key, field, doubleValue);
+      if (keyExpiryTime != -1) {
+        jedis.expire(key, keyExpiryTime);
+      }
     }
   }
 
@@ -246,9 +287,17 @@ public class RedisStore implements TransactionableKeyValueStore
    */
   public void incrByFloat(String key, double doubleValue)
   {
-    jedis.incrByFloat(key, doubleValue);
-    if (keyExpiryTime != -1) {
-      jedis.expire(key, keyExpiryTime);
+    if (isInTransaction()) {
+      transaction.incrByFloat(key, doubleValue);
+      if (keyExpiryTime != -1) {
+        transaction.expire(key, keyExpiryTime);
+      }
+    }
+    else {
+      jedis.incrByFloat(key, doubleValue);
+      if (keyExpiryTime != -1) {
+        jedis.expire(key, keyExpiryTime);
+      }
     }
   }
 
@@ -268,6 +317,12 @@ public class RedisStore implements TransactionableKeyValueStore
   protected Object getCommittedWindowKey(String appId, int operatorId)
   {
     return "_dt_wid:" + appId + ":" + operatorId;
+  }
+
+  @Override
+  public void removeCommittedWindowId(String appId, int operatorId)
+  {
+    remove(getCommittedWindowKey(appId, operatorId));
   }
 
 }
