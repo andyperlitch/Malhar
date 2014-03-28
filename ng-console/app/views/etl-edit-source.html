@@ -20,6 +20,8 @@
         <p class="help-block" ng-if="!source.type">What type of data source or stream is this?</p>
       </div>
       <div ng-if="source.type" class="well">
+        <!-- type.description -->
+        <p><strong>description:</strong> {{source.type.description}}</p>
         <!-- source.properties -->
         <div class="form-group" ng-repeat="prop in source."></div>
       </div>

@@ -27,21 +27,37 @@ angular.module('ngConsoleApp')
     // Data Sources
     $scope.sourceTypes = [
       {
-        id: 'http',
-        label: 'HTTP (polling)',
+        id: 'HttpJsonChunksInputOperator',
+        description: 'Connect to an HTTP endpoint. Incoming data is interpreted as JSON objects.',
+        label: 'HTTP (JSON Chunks)',
         properties: {
-          "title": "HttpInputOperator properties",
-          "type": "object",
-          "properties": {
-            "url": {
-              "type": "string"
-            },
-            "pollInterval": {
-              "type": "integer"
+          'title': 'properties',
+          'type': 'object',
+          'description': 'HttpJsonChunksInputOperator properties',
+          'properties': {
+            'url': {
+              'description': 'The URL of the web service resource for the POST request.',
+              'type': 'string'
             }
           },
-          "required": ["url", "pollInterval"],
-          "displayOrder": ["url", "pollInterval"]
+          'required': ['url']
+        }
+      },
+      {
+        id: 'HttpLinesInputOperator',
+        description: 'Connect to an HTTP endpoint. Each line of input is a new tuple.',
+        label: 'HTTP (Lines)',
+        properties: {
+          'title': 'properties',
+          'type': 'object',
+          'description': 'HttpLinesInputOperator properties',
+          'properties': {
+            'url': {
+              'description': 'The URL of the web service resource for the POST request.',
+              'type': 'string'
+            }
+          },
+          'required': ['url']
         }
       }
     ];
