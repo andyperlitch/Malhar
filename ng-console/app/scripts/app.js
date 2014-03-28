@@ -14,20 +14,25 @@ angular.module('ngConsoleApp', [
   $routeProvider
     .when('/config', {
       templateUrl: 'views/config.html',
-      label: 'configuration'
+      label: 'Configuration'
     })
     .when('/config/wizard', {
       templateUrl: 'views/wizard.html',
-      label: 'install wizard'
+      label: 'Install Wizard'
     })
     .when('/ops', {
       controller: 'OpsCtrl',
       templateUrl: 'views/ops.html',
-      label: 'operations'
+      label: 'Operations'
     })
     .when('/dev', {
       templateUrl: 'views/dev.html',
-      label: 'development'
+      label: 'Development'
+    })
+    .when('/dev/build-an-etl-app', {
+      controller: 'BuildEtlCtrl',
+      templateUrl: 'views/etl.html',
+      label: 'Build an ETL App'
     })
     .otherwise({
       redirectTo: '/config'
