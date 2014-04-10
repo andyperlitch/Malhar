@@ -75,6 +75,7 @@ exports = module.exports = {
         Application              :'applications.:appId',
         Operators                :'applications.:appId.operators',
         Containers               :'applications.:appId.containers',
+        Events                   :'applications.:appId.events',
         TupleRecorder            :'tupleRecorder.:startTime'
 
     },
