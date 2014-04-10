@@ -32,6 +32,7 @@ exports = module.exports = {
         Port                     :'/ws/:v/applications/:appid/physicalPlan/operators/:operatorId/ports',
         Container                :'/ws/:v/applications/:appId/physicalPlan/containers',
         Alert                    :'/ws/:v/applications/:appId/alerts',
+        StramEvent               :'/ws/:v/applications/:appId/events',
         AppRecordings            :'/ws/:v/applications/:appId/recordings',
         Recording                :'/ws/:v/applications/:appId/physicalPlan/operators/:operatorId/recordings',
         RecordingTuples          :'/ws/:v/applications/:appId/physicalPlan/operators/:operatorId/recordings/:startTime/tuples',
@@ -75,7 +76,7 @@ exports = module.exports = {
         Application              :'applications.:appId',
         Operators                :'applications.:appId.operators',
         Containers               :'applications.:appId.containers',
-        Events                   :'applications.:appId.events',
+        StramEvents              :'applications.:appId.events',
         TupleRecorder            :'tupleRecorder.:startTime'
 
     },

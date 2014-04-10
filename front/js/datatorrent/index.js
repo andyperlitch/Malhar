@@ -74,6 +74,8 @@ var datatorrent = {
         RecordingCollection          : require('./RecordingCollection'),
         RecordingModel               : require('./RecordingModel'),
         RestartModal                 : require('./RestartModalView'),
+        StramEventCollection         : require('./StramEventCollection'),
+        StramEventModel              : require('./StramEventModel'),
         StreamCollection             : require('./StreamCollection'),
         StreamModel                  : require('./StreamModel'),
         StreamPortCollection         : require('./StreamPortCollection'),
