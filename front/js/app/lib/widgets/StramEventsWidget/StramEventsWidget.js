@@ -17,7 +17,9 @@
 var _ = require('underscore');
 var kt = require('knights-templar');
 var BaseView = DT.lib.WidgetView;
-
+var StramEventCollection = DT.lib.StramEventCollection;
+var Tabled = DT.lib.Tabled;
+var columns = require('./columns');
 /**
  * StramEventsWidget
  * 
@@ -29,9 +31,16 @@ var StramEventsWidget = BaseView.extend({
     initialize: function(options) {
         
         BaseView.prototype.initialize.call(this, options);
-        
-        
-        
+        this.collection = new StramEventCollection([],{
+            dataSource: options.dataSource,
+            appId: options.appId
+        });
+        this.collection.subscribe();
+
+        this.subview('table', new Tabled({
+            collection: this.collection,
+            columns: columns
+        }));
     },
     
     html: function() {
