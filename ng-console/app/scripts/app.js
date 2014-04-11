@@ -12,26 +12,29 @@ angular.module('ngConsoleApp', [
 ])
 .config(function ($routeProvider) {
   $routeProvider
+
+    // CONFIGURATION
     .when('/config', {
-      templateUrl: 'views/config.html',
+      templateUrl: 'views/config/index.html',
       label: 'Configuration'
     })
-    .when('/config/wizard', {
-      templateUrl: 'views/wizard.html',
-      label: 'Install Wizard'
+    .when('/config/welcome', {
+      templateUrl: 'views/config/wizard.html',
+      label: 'Installation Wizard'
     })
-    .when('/ops', {
-      controller: 'OpsCtrl',
-      templateUrl: 'views/ops.html',
-      label: 'Operations'
+    .when('/config/license-info', {
+      templateUrl: 'views/config/license.html',
+      label: 'License Information'
     })
+
+    // DEVELOPMENT
     .when('/dev', {
-      templateUrl: 'views/dev.html',
+      templateUrl: 'views/dev/index.html',
       label: 'Development'
     })
     .when('/dev/build-an-etl-app', {
       controller: 'BuildEtlCtrl',
-      templateUrl: 'views/etl/etl.html',
+      templateUrl: 'views/dev/etl/etl.html',
       label: 'Build an ETL App'
     })
     .when('/dev/analyze-apache-log', {
@@ -39,6 +42,15 @@ angular.module('ngConsoleApp', [
       templateUrl: 'views/apache-log/apache-log.html',
       label: 'Analyze an Apache Log'
     })
+    
+    // OPERATIONS
+    .when('/ops', {
+      controller: 'OpsCtrl',
+      templateUrl: 'views/ops/index.html',
+      label: 'Operations'
+    })
+
+    // DEFAULT
     .otherwise({
       redirectTo: '/config'
     });
