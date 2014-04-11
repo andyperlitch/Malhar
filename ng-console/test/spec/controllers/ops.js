@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: OpsctrlCtrl', function () {
+describe('Controller: OpsCtrl', function () {
 
   // load the controller's module
   beforeEach(module('ngConsoleApp'));
@@ -11,12 +11,12 @@ describe('Controller: OpsctrlCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    OpsctrlCtrl = $controller('OpsctrlCtrl', {
+    OpsctrlCtrl = $controller('OpsCtrl', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should attach a dashboardOptions object', function () {
+    expect(scope.dashboardOptions).to.be.an('object');
   });
 });
