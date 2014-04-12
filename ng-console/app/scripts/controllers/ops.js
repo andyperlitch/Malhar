@@ -10,6 +10,10 @@ angular.module('ngConsoleApp')
         style: {
           width: '30%'
         }
+      },
+      {
+        name: 'ClusterMetrics',
+        template: '<div dt-overview></div>'
       }
     ];
 
