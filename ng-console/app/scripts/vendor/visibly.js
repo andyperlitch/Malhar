@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('ngConsoleApp')
   .factory('visibly', function ($document, $window) {
 
@@ -11,21 +13,22 @@ angular.module('ngConsoleApp')
       hiddenCallbacks: [],
       genericCallbacks:[],
       _callbacks: [],
-      cachedPrefix:"",
+      cachedPrefix:'',
       fn:null,
 
       onVisible: function (_callback) {
-        if(typeof _callback == 'function' ){
+        if(typeof _callback === 'function' ){
           this.visibleCallbacks.push(_callback);
         }
       },
       onHidden: function (_callback) {
-        if(typeof _callback == 'function' ){
+        if(typeof _callback === 'function' ){
           this.hiddenCallbacks.push(_callback);
         }
       },
       getPrefix:function(){
         if(!this.cachedPrefix){
+          var b;
           for(var l=0;b=this.prefixes[l++];){
             if(b + this.props[2] in this.q){
               this.cachedPrefix =  b;

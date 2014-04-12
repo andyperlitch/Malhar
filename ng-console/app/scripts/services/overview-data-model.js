@@ -1,8 +1,12 @@
 'use strict';
 
 angular.module('ngConsoleApp')
-  .factory('overviewDataModel', function (WidgetDataModel) {
+  .factory('OverviewDataModel', function (WidgetDataModel) {
 
-    
+    function OverviewDataModel() {
+
+    }
+
+    return OverviewDataModel;
 
   });
