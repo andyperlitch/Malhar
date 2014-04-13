@@ -6,9 +6,15 @@ describe('Directive: dtOverview', function () {
   beforeEach(module('ngConsoleApp'));
 
   var element,
-    scope;
+    scope,
+    isoScope;
 
-  beforeEach(inject(function ($rootScope) {
+  // returns nth overview-item
+  function getNth(n) {
+    return element.find('.overview-item:eq('+n+')');
+  }
+
+  beforeEach(inject(function ($rootScope, $compile) {
     scope = $rootScope.$new();
     scope.myFields = [
       {
@@ -50,26 +56,83 @@ describe('Directive: dtOverview', function () {
       metric4: '$',
       timestamp: Date.now()
     };
-  }));
-
-  it('should have as many .overview-items as fields', inject(function ($compile) {
+    
     element = angular.element('<div dt-overview fields="myFields" data="myData"></div>');
     element = $compile(element)(scope);
     scope.$digest();
-    expect(element.find('.overview-item').length).to.equal(scope.myFields.length);
+    isoScope = element.isolateScope();
+
   }));
 
+  describe('the isolate scope', function() {
+    
+    it('should have a printLabel function', function() {
+      expect(isoScope.printLabel).to.be.a('function');
+    });
+
+    describe('the printLabel function', function() {
+
+      var fn;
+
+      beforeEach(function() {
+        fn = isoScope.printLabel;
+      });
+
+      it('should return the key if label not present', function() {
+        expect(fn(scope.myFields[0])).to.equal('metric1');
+      });
+
+      it('should put the label in the .key element if present', function() {
+        expect(fn(scope.myFields[1])).to.equal('Metric 2');
+      });
+
+    });
+
+    it('should have a printValue function', function() {
+      expect(isoScope.printValue).to.be.a('function');
+    });
+
+    describe('the printValue function', function() {
+      
+      var fn;
+
+      function printV(n) {
+        return fn(scope.myFields[n],scope.myData);
+      }
+
+      beforeEach(function() {
+        fn = isoScope.printValue;
+      });
+
+      it('should return data[key] by default', function() {
+        expect(printV(0)).to.equal(100);
+      });
+
+      it('should evaluate the value function if present', function() {
+        expect(printV(2)).to.equal('THREE HUNDRED');
+      });
+
+      it('should check for a specified filter to use', function() {
+        var y = (new Date()).getFullYear();
+        var computed = printV(4);
+        var date = new Date(computed);
+        expect(date.getFullYear()).to.equal(y);
+      });
+
+      it('should pass in additional filter arguments', function() {
+        var y = (new Date()).getFullYear();
+        var computed = printV(5);
+        expect(computed).to.equal(y + '');
+      });
+    });
+
+  });
+
   describe('a div.overview-item', function() {
-
-    function getNth(n) {
-      return element.find('.overview-item:eq('+n+')');
-    }
-
-    beforeEach(inject(function ($compile) {
-      element = angular.element('<div dt-overview fields="myFields" data="myData"></div>');
-      element = $compile(element)(scope);
-      scope.$digest();
-    }));
+    
+    it('should have as many .overview-items as fields', function () {
+      expect(element.find('.overview-item').length).to.equal(scope.myFields.length);
+    });
 
     it('should have a div.key and div.value element', function() {
       var keys = element.find('.overview-item > div.key');
@@ -78,34 +141,24 @@ describe('Directive: dtOverview', function () {
       expect(values.length).to.equal(scope.myFields.length);
     });
 
-    it('should put the key in the .key element if label not present', function() {
-      expect(getNth(0).find('.key').text()).to.equal('metric1');
+    it('should use printLabel for div.key text', function() {
+      isoScope.printLabel = function() { return 'charles mingus'; };
+      scope.$digest();
+      element.find('.overview-item > div.key').each(function(i, el) {
+        expect(this.innerHTML).to.equal('charles mingus');
+      });
     });
 
-    it('should put the label in the .key element if present', function() {
-      expect(getNth(1).find('.key').text()).to.equal('Metric 2');
-    });
-
-    it('should display data[key] by default', function() {
-      expect(getNth(0).find('.value').text()).to.equal('100');
-    });
-
-    it('should evaluate a value function if present and put the result in .value', function() {
-      expect(getNth(2).find('.value').text()).to.equal('THREE HUNDRED');
-    });
-
-    it('should check for a specified filter to use', function() {
-      var y = (new Date()).getFullYear();
-      var computed = getNth(4).find('.value').text();
-      var date = new Date(computed);
-      expect(date.getFullYear()).to.equal(y);
-    });
-
-    it('should pass in additional filter arguments', function() {
-      var y = (new Date()).getFullYear();
-      var computed = getNth(5).find('.value').text();
-      expect(computed).to.equal(y + '');
+    it('should use printValue for div.value text', function() {
+      isoScope.printValue = function() { return 'john coltrane'; };
+      scope.$digest();
+      element.find('.overview-item > div.value').each(function(i, el) {
+        expect(this.innerHTML).to.equal('john coltrane');
+      });
     });
 
   });
+
+  
+
 });
