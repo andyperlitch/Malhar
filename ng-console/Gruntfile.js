@@ -39,11 +39,15 @@ module.exports = function (grunt) {
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'karma']
+        tasks: ['karma']
       },
       less: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
         tasks: ['concat:less','less:development']
+      },
+      html2js: {
+        files: ['<%= yeoman.app %>/scripts/directives/*.tpl.html'],
+        tasks: ['html2js']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -54,10 +58,21 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
+          '.tmp/styles/main.css',
+          '.tmp/scripts/templates.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
+    },
+
+    html2js: {
+      options: {
+        base: 'app'
+      },
+      main: {
+        src: ['app/**/*.tpl.html'],
+        dest: '.tmp/scripts/templates.js'
+      },
     },
 
     // The actual grunt server settings
@@ -398,6 +413,7 @@ module.exports = function (grunt) {
       'concat:less',
       'concurrent:server',
       'autoprefixer',
+      'html2js',
       'connect:livereload',
       'watch'
     ]);

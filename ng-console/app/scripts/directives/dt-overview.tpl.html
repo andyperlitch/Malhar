@@ -1,1 +1,6 @@
-Testing
+<div ng-repeat="field in fields" class="overview-item">
+
+    <div class="key">{{ field.label || field.key }}</div>
+    <div class="value">{{ printValue(field, data) }}</div>
+
+</div>

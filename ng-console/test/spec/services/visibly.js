@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: Visibly', function () {
+describe('Service: visibly', function () {
 
   // load the service's module
   beforeEach(module('ngConsoleApp'));
 
   // instantiate service
-  var Visibly;
-  beforeEach(inject(function (_Visibly_) {
-    Visibly = _Visibly_;
+  var visibly;
+  beforeEach(inject(function (_visibly_) {
+    visibly = _visibly_;
   }));
 
-  it('should do something', function () {
-    expect(!!Visibly).toBe(true);
+  it('should be an object', function () {
+    expect(visibly).to.be.an('object');
   });
 
 });

@@ -39,7 +39,9 @@
     "karma-sinon-chai": "^0.1.5",
     "karma-sinon": "",
     "karma-chai": "",
-    "karma-coverage": ""
+    "karma-coverage": "",
+    "grunt-html2js": "",
+    "karma-ng-html2js-preprocessor": "~0.1"
   },
   "engines": {
     "node": ">=0.8.0"

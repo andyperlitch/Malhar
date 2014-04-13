@@ -1,16 +1,21 @@
 'use strict';
 
 angular.module('ngConsoleApp', [
+  'templates-main',
+  'ngConsoleApp.websocket',
   'ngCookies',
   'ngResource',
   'ngSanitize',
   'ngRoute',
   'ui.dashboard',
+  'ui.notify',
   'mgcrea.ngStrap.navbar',
   'mgcrea.ngStrap.dropdown',
-  'ng-breadcrumbs'
+  'ng-breadcrumbs',
+  'restangular'
 ])
-.config(function ($routeProvider) {
+.config(function (webSocketProvider, $routeProvider) {
+  webSocketProvider.setWebSocketURL('ws://node0.morado.com:9090/pubsub');
   $routeProvider
 
     // CONFIGURATION

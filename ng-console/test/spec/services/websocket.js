@@ -1,18 +1,27 @@
 'use strict';
 
-describe('Service: Websocket', function () {
+describe('Service: webSocket', function () {
+
+  var webSocket, MockWebSocket;
 
   // load the service's module
   beforeEach(module('ngConsoleApp'));
 
-  // instantiate service
-  var Websocket;
-  beforeEach(inject(function (_Websocket_) {
-    Websocket = _Websocket_;
+  // mock the $WebSocket
+  beforeEach(module('ngConsoleApp.websocket', function($provide) {
+    MockWebSocket = function() {
+      
+    }
+    $provide.value('$WebSocket', MockWebSocket);
   }));
 
-  it('should do something', function () {
-    expect(!!Websocket).toBe(true);
+  // instantiate service
+  beforeEach(inject(['webSocket',function (ws) {
+    webSocket = ws;
+  }]));
+
+  it('should be an object', function () {
+    expect(webSocket).to.be.an('object');
   });
 
 });

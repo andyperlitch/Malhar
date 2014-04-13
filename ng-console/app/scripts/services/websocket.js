@@ -4,18 +4,21 @@ angular.module('ngConsoleApp.websocket', ['ui.notify'])
   .factory('visibly', function ($window) {
     return $window.visibly;
   })
+  .factory('$WebSocket', function ($window) {
+    return $window.WebSocket;
+  })
   .provider('webSocket', function () {
 
     var webSocketURL;
     var webSocketObject; // for testing only
 
     return {
-      $get: function ($q,  $rootScope, $timeout, notificationService, visibly) {
+      $get: function ($q,  $rootScope, $timeout, notificationService, $WebSocket, visibly) {
         if (!webSocketURL && !webSocketObject) {
           throw 'WebSocket URL is not defined';
         }
 
-        var socket = !webSocketObject ? new WebSocket(webSocketURL) : webSocketObject;
+        var socket = !webSocketObject ? new $WebSocket(webSocketURL) : webSocketObject;
 
         var deferred = $q.defer();
 

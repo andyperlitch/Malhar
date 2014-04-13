@@ -88,7 +88,7 @@
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -97,7 +97,7 @@
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
-    <script src="bower_components/angular-ui-sortable/src/sortable.js"></script>
+    <script src="bower_components/angular-ui-sortable/sortable.js"></script>
     <script src="bower_components/angular-ui-dashboard/dist/angular-ui-dashboard.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
@@ -106,11 +106,15 @@
     <script src="bower_components/ng-breadcrumbs/dist/ng-breadcrumbs.min.js"></script>
     <script src="bower_components/pines-notify/jquery.pnotify.js"></script>
     <script src="bower_components/angular-pines-notify/src/pnotify.js"></script>
+    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+    <script src="bower_components/restangular/dist/restangular.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/templates.js"></script>
+        <script src="scripts/directives/dt-overview.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/Ops.js"></script>
         <script src="scripts/controllers/navbar-top.js"></script>

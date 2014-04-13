@@ -11,12 +11,6 @@ module.exports = function(config) {
     'test/mocha.conf.js',
 
     //test files
-    'test/midway/appSpec.js',
-    'test/midway/controllers/controllersSpec.js',
-    'test/midway/filters/filtersSpec.js',
-    'test/midway/directives/directivesSpec.js',
-    'test/midway/requestsSpec.js',
-    'test/midway/routesSpec.js',
     'test/midway/**/*.js'
   ]);
 
