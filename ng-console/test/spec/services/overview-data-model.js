@@ -24,7 +24,7 @@ describe('Service: OverviewDataModel', function () {
 
     ds = new OverviewDataModel();
     ds.setup(Widget, widgetScope);
-    
+
   }));
 
   it('should be a function', function () {
@@ -38,11 +38,15 @@ describe('Service: OverviewDataModel', function () {
 
   describe('init method', function() {
     
+    beforeEach(function() {
+      ds.init();
+    });
+
     it('should add "fields" to the widget scope', function() {
       expect(widgetScope.fields).to.equal(Widget.dataModelOptions.fields);
     });
 
-    
+
 
   });
 
