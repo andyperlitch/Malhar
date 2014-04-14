@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngConsoleApp')
+angular.module('dtConsoleApp')
   .controller('OpsCtrl', ['$scope', 'OverviewDataModel', 'DTtext', function ($scope, OverviewDataModel, text) {
       
       var widgetDefinitions = [

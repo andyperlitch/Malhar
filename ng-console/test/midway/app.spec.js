@@ -2,7 +2,7 @@ describe("App Module:", function() {
 
   var module;
   before(function() {
-    module = angular.module("ngConsoleApp");
+    module = angular.module("dtConsoleApp");
   });
 
   it("should be registered", function() {
@@ -22,7 +22,7 @@ describe("App Module:", function() {
     // check dependencies
     [
       'templates-main',
-      'ngConsoleApp.websocket',
+      'dtConsoleApp.websocket',
       'ngCookies',
       'ngResource',
       'ngSanitize',

@@ -3,7 +3,7 @@
 describe('Directive: dtOverview', function () {
 
   // load the directive's module
-  beforeEach(module('ngConsoleApp'));
+  beforeEach(module('dtConsoleApp'));
 
   var element,
     scope,

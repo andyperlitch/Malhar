@@ -3,7 +3,7 @@
 describe('Controller: BuildEtlCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('ngConsoleApp'));
+  beforeEach(module('dtConsoleApp'));
 
   var BuildEtlCtrl,
     scope;

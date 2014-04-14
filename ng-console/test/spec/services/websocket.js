@@ -5,10 +5,10 @@ describe('Service: webSocket', function () {
   var webSocket, MockWebSocket;
 
   // load the service's module
-  beforeEach(module('ngConsoleApp'));
+  beforeEach(module('dtConsoleApp'));
 
   // mock the $WebSocket
-  beforeEach(module('ngConsoleApp.websocket', function($provide) {
+  beforeEach(module('dtConsoleApp.websocket', function($provide) {
     MockWebSocket = function() {
       
     }

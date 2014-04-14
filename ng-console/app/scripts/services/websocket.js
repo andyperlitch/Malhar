@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngConsoleApp.websocket', ['ui.notify'])
+angular.module('dtConsoleApp.websocket', ['ui.notify'])
   .factory('visibly', function ($window) {
     return $window.visibly;
   })
