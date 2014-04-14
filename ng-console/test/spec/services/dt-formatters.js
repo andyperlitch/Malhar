@@ -7,7 +7,7 @@ describe('Module: DtFormatters', function () {
   // load the service's module
   beforeEach(module('dtConsoleApp.formatters'));
 
-  describe('the byteFormatter', function() {
+  describe('the byteFilter', function() {
 
     beforeEach(inject(function(dtByteFilterFilter) {
       f = dtByteFilterFilter;
@@ -26,7 +26,7 @@ describe('Module: DtFormatters', function () {
 
   });
 
-  describe('the cpusFormatter', function() {
+  describe('the cpusFilter', function() {
 
     beforeEach(inject(function(dtCpuFilterFilter) {
       f = dtCpuFilterFilter;
@@ -49,6 +49,38 @@ describe('Module: DtFormatters', function () {
       expect(f('110', true)).to.equal('1.10');
     });
 
+    it('should return "-" if the value passed is not a parseable number', function() {
+      expect(f('not_number')).to.equal('-');
+      expect(f('')).to.equal('-');
+      expect(f()).to.equal('-');
+    });
+
   });
+
+  describe('the commaGroupsFilter', function() {
+    
+    beforeEach(inject(function(dtCommaGroupsFilter) {
+      f = dtCommaGroupsFilter;
+    }));
+
+    it('should exist', function() {
+      expect(f).to.be.a('function');
+    });
+
+    it("should format number strings with commas every three places", function(){
+      expect( f("1000000000") ).to.equal("1,000,000,000");
+    });
+
+    it("should accept a number as an argument", function() {
+      expect( f(1000000000) ).to.equal("1,000,000,000");
+    });
+
+    it("should not format numbers less than 1000", function() {
+      expect( f("893") ).to.equal("893");
+    });
+
+  });
+
+
 
 });

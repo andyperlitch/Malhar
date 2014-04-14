@@ -45,15 +45,35 @@ angular.module('dtConsoleApp.formatters', [])
   })
   .filter('dtCpuFilter', function() {
     function cpusFormatter(percent, isNumerator) {
+
+      if (percent === '' || percent === false || percent === undefined) {
+        return '-';
+      }
+
       if (isNumerator) {
         percent /= 100;
       } else {
         percent *= 1;
       }
+
+      if (isNaN(percent)) {
+        return '-';
+      }
+
       percent = percent.toFixed(2);
       return percent + '';
+      
     }
     return cpusFormatter;
+  })
+  .filter('dtCommaGroups', function() {
+    function commaGroups(value) {
+      if (typeof value === 'undefined') return '';
+      var parts = value.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return parts.join(".");
+    }
+    return commaGroups;
   })
   
   // function containerFormatter(value, row) {
