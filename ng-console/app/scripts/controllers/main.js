@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngConsoleApp')
+angular.module('dtConsole')
 
   .controller('MainCtrl', ['$scope', 'breadcrumbs', function ($scope,breadcrumbs) {
       $scope.breadcrumbs = breadcrumbs;

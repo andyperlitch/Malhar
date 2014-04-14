@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngConsoleApp')
+angular.module('dtConsole')
   .directive('dtOverview', ['$filter',function ($filter) {
 
       function link(scope, elm, attrs) {

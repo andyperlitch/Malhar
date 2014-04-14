@@ -3,7 +3,7 @@
 describe('Service: visibly', function () {
 
   // load the service's module
-  beforeEach(module('ngConsoleApp'));
+  beforeEach(module('dtConsole'));
 
   // instantiate service
   var visibly;

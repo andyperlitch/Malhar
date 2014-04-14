@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngConsoleApp')
+angular.module('dtConsole')
   .factory('OverviewDataModel', ['WidgetDataModel', 'Restangular', 'webSocket', function (WidgetDataModel, rest, ws) {
   
       function OverviewDataModel() {}

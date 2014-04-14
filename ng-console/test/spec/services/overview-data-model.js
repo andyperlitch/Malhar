@@ -3,7 +3,7 @@
 describe('Service: OverviewDataModel', function () {
 
   // load the service's module
-  beforeEach(module('ngConsoleApp'));
+  beforeEach(module('dtConsole'));
 
   
   var OverviewDataModel, ds, widgetScope, Widget;

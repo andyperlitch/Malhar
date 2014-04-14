@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('ngConsoleApp', [
+angular.module('dtConsole', [
   'templates-main',
-  'ngConsoleApp.websocket',
+  'dtConsole.websocket',
   'ngCookies',
   'ngResource',
   'ngSanitize',

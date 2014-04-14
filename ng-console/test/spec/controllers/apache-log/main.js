@@ -3,7 +3,7 @@
 describe('Controller: ApacheLogMainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('ngConsoleApp'));
+  beforeEach(module('dtConsole'));
 
   var ApacheLogMainCtrl,
     scope;
