@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('dtConsoleApp', [
-  'templates-main',
   'dtConsoleApp.websocket',
+  'dtConsoleApp.formatters',
+  'templates-main',
   'ngCookies',
   'ngResource',
   'ngSanitize',

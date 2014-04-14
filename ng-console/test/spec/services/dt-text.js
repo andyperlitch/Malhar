@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: Dtext', function () {
+describe('Service: DTtext', function () {
 
   // load the service's module
   beforeEach(module('dtConsoleApp'));
 
   // instantiate service
-  var Dtext;
-  beforeEach(inject(function (_Dtext_) {
-    Dtext = _Dtext_;
+  var DTtext;
+  beforeEach(inject(function (_DTtext_) {
+    DTtext = _DTtext_;
   }));
 
   it('should do something', function () {
-    expect(!!Dtext).toBe(true);
+    expect(!!DTtext).to.equal(true);
   });
 
 });

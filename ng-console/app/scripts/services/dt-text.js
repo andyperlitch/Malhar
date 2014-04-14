@@ -6,7 +6,7 @@ angular.module('dtConsoleApp')
    *
    * May be used in the future for i18n support
    */
-  .service('DTtext', ['DTformatters', function Dtext(formatters) {
+  .service('DTtext', ['$filter', function Dtext($filter) {
     
     var textHash = {
       // Labels
@@ -91,7 +91,7 @@ angular.module('dtConsoleApp')
         if (!agent.percentUsedLicenseMB) {
           return 'Memory usage loading or unknown.';
         }
-        return 'You are using ' + formatters.byteFormatter(agent.usedLicensedMB, 'mb') + ' of ' + formatters.byteFormatter(agent.totalLicensedMB, 'mb') + ' licensed memory.';
+        return 'You are using ' + $filter('byteFilter', agent.usedLicensedMB, 'mb') + ' of ' + $filter('byteFilter', agent.totalLicensedMB, 'mb') + ' licensed memory.';
       },
       'locality_not_assigned'      :  'AUTOMATIC',
       'no action available'        :  'no action available',
