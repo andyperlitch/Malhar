@@ -7,10 +7,14 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+// Get config file
+var config = require('./config');
+
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
+  grunt.loadNpmTasks('grunt-connect-proxy');
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -47,7 +51,7 @@ module.exports = function (grunt) {
       },
       html2js: {
         files: ['<%= yeoman.app %>/scripts/directives/*.tpl.html'],
-        tasks: ['html2js']
+        tasks: ['html2js:development']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -69,7 +73,10 @@ module.exports = function (grunt) {
       options: {
         base: 'app'
       },
-      main: {
+      development: {
+        options: {
+          module: 'templates-main'
+        },
         src: ['app/**/*.tpl.html'],
         dest: '.tmp/scripts/templates.js'
       },
@@ -78,17 +85,43 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
+        port: config.web.port,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: config.web.host,
         livereload: 35729
       },
       livereload: {
         options: {
-          open: true,
+          // open: true,
           base: [
             '.tmp',
             '<%= yeoman.app %>'
+          ],
+          middleware: function (connect, options) {
+            if (!Array.isArray(options.base)) {
+                options.base = [options.base];
+            }
+
+            // Setup the proxy
+            var middlewares = [require('grunt-connect-proxy/lib/utils').proxyRequest];
+
+            // Serve static files
+            options.base.forEach(function(base) {
+                middlewares.push(connect.static(base));
+            });
+
+            // Make directory browse-able
+            var directory = options.directory || options.base[options.base.length - 1];
+            middlewares.push(connect.directory(directory));
+
+            return middlewares;
+          },
+          proxies: [
+            {
+              context: '/ws/v1',
+              host: config.gateway.host,
+              port: config.gateway.port
+            }
           ]
         }
       },
@@ -330,7 +363,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'less:development'
+        // 'less:development'
       ],
       test: [
         // 'compass'
@@ -401,22 +434,38 @@ module.exports = function (grunt) {
     }
   });
 
-
+  
+  // Development Server
   grunt.registerTask('serve', function (target) {
+
+    // build and serve
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
 
     grunt.task.run([
+      // clears out .tmp folder
       'clean:server',
-      'bower-install',
+
+      // concatenates main and theme less files, outputs to .tmp/styles/main.less
       'concat:less',
-      'concurrent:server',
-      'autoprefixer',
-      'html2js',
+
+      // compiles .tmp/styles/main.less, with debug enabled
+      'less:development',
+
+      // converts template files to .tmp/scripts/templates.js, angular.module('templates-main')
+      'html2js:development',
+
+      // configures the proxy to ws/v1 calls
+      'configureProxies:livereload',
+
+      // starts a server on config.web.port, serves proxy, .tmp, and <%= yeoman.app %>
       'connect:livereload',
+
+      // watches files and performs tasks on changes
       'watch'
     ]);
+
   });
 
   grunt.registerTask('server', function () {
@@ -437,6 +486,7 @@ module.exports = function (grunt) {
     'bower-install',
     'useminPrepare',
     'concurrent:dist',
+    // Add vendor prefixes to css properties
     'autoprefixer',
     'concat',
     'ngmin',
