@@ -53,18 +53,6 @@ app.get('/', function(req, res) {
     fs.createReadStream(__dirname + '/app/index.html').pipe(res);
 });
 
-// Compile LESS on the fly
-app.use(lessm(
-    __dirname + '/styles',
-    {
-        dest: __dirname + '/styles'
-    },
-    {
-        debug: true,
-        sourceMap: true
-    }
-));
-
 // Serve static files
 app.use(express.static(__dirname + '/.tmp', { maxAge: 86400000 }));
 app.use(express.static(__dirname + '/app', { maxAge: 86400000 }));

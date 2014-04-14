@@ -456,11 +456,15 @@ module.exports = function (grunt) {
       // converts template files to .tmp/scripts/templates.js, angular.module('templates-main')
       'html2js:development',
 
+      // COMMENTED OUT UNTIL PROXY CONFIG CAN BE WORKED OUT
+      // --------------------------------------------------
       // configures the proxy to ws/v1 calls
-      'configureProxies:livereload',
+      // 'configureProxies:livereload',
 
       // starts a server on config.web.port, serves proxy, .tmp, and <%= yeoman.app %>
-      'connect:livereload',
+      // 'connect:livereload',
+      // --------------------------------------------------
+      
 
       // watches files and performs tasks on changes
       'watch'
