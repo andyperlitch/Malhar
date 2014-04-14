@@ -10,8 +10,10 @@ angular.module('ngConsoleApp')
       OverviewDataModel.prototype.init = function() {
         // Set fields from dataModelOptions
         this.widgetScope.fields = this.dataModelOptions.fields;
-        this.setUrl(this.dataModelOptions.url);
-        this.setTopic(this.dataModelOptions.topic);
+        this.url = this.dataModelOptions.url;
+        this.topic = this.dataModelOptions.topic;
+
+        
 
       }
 
