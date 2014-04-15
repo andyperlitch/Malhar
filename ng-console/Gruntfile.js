@@ -46,7 +46,7 @@ module.exports = function (grunt) {
         tasks: ['karma']
       },
       less: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+        files: ['<%= yeoman.app %>/styles/{,*/}{,*/}*.less'],
         tasks: ['concat:less','less:development']
       },
       html2js: {

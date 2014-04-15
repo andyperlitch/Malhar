@@ -43,29 +43,29 @@ angular.module('dtConsoleApp.formatters', [])
     }
     return byteFormatter;
   })
-  .filter('dtCpuFilter', function() {
-    function cpusFormatter(percent, isNumerator) {
-
-      if (percent === '' || percent === false || percent === undefined) {
-        return '-';
+  .filter('dtCpuFilter', ['$filter', function($filter) {
+      function cpusFormatter(percent, isNumerator) {
+  
+        if (percent === '' || percent === false || percent === undefined) {
+          return '-';
+        }
+  
+        if (isNumerator) {
+          percent /= 100;
+        } else {
+          percent *= 1;
+        }
+  
+        if (isNaN(percent)) {
+          return '-';
+        }
+  
+        percent = percent.toFixed(2);
+        return $filter('dtCommaGroups')(percent + '');
+        
       }
-
-      if (isNumerator) {
-        percent /= 100;
-      } else {
-        percent *= 1;
-      }
-
-      if (isNaN(percent)) {
-        return '-';
-      }
-
-      percent = percent.toFixed(2);
-      return percent + '';
-      
-    }
-    return cpusFormatter;
-  })
+      return cpusFormatter;
+    }])
   .filter('dtCommaGroups', function() {
     function commaGroups(value) {
       if (typeof value === 'undefined') return '';

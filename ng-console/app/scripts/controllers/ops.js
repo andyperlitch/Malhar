@@ -63,6 +63,9 @@ angular.module('dtConsoleApp')
                 filter: 'dtCommaGroups'
               }
             ]
+          },
+          style: {
+            width: '100%'
           }
         }
       ];
