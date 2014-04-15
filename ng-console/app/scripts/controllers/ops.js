@@ -7,9 +7,11 @@ angular.module('dtConsoleApp')
         {
           name: 'ClusterMetrics',
           title: 'Cluster Info',
-          template: '<div dt-overview fields="fields" data="data"></div>',
+          template: '<div dt-overview fields="fields" data="widgetData"></div>',
           dataModelType: OverviewDataModel,
+          dataAttrName: 'data',
           dataModelOptions: {
+            topic: 'ClusterMetrics',
             fields: [
               {
                 label: text.get('cores_label'),
@@ -33,13 +35,14 @@ angular.module('dtConsoleApp')
                 label: text.get('running / pending / failed / finished / killed / submitted'),
                 key: 'numAppsRunning',
                 value: function(numAppsRunning, attrs) {
-                  return '<span class="status-running">' + $filter('dtCommaGroups', attrs.numAppsRunning) + '</span> / ' +
-                  '<span class="status-pending-deploy">' + $filter('dtCommaGroups', attrs.numAppsPending) + '</span> / ' +
-                  '<span class="status-failed">' + $filter('dtCommaGroups', attrs.numAppsFailed) + '</span> / ' +
-                  '<span class="status-finished">' + $filter('dtCommaGroups', attrs.numAppsFinished) + '</span> / ' +
-                  '<span class="status-killed">' + $filter('dtCommaGroups', attrs.numAppsKilled) + '</span> / ' +
-                  '<span class="status-submitted">' + $filter('dtCommaGroups', attrs.numAppsSubmitted) + '</span>';
-                }
+                  return '<span class="status-running">' + $filter('dtCommaGroups')(attrs.numAppsRunning) + '</span> / ' +
+                  '<span class="status-pending-deploy">' + $filter('dtCommaGroups')(attrs.numAppsPending) + '</span> / ' +
+                  '<span class="status-failed">' + $filter('dtCommaGroups')(attrs.numAppsFailed) + '</span> / ' +
+                  '<span class="status-finished">' + $filter('dtCommaGroups')(attrs.numAppsFinished) + '</span> / ' +
+                  '<span class="status-killed">' + $filter('dtCommaGroups')(attrs.numAppsKilled) + '</span> / ' +
+                  '<span class="status-submitted">' + $filter('dtCommaGroups')(attrs.numAppsSubmitted) + '</span>';
+                },
+                trustAsHtml: true
               },
               {
                 label: text.get('num_containers_label'),
@@ -63,7 +66,7 @@ angular.module('dtConsoleApp')
           }
         }
       ];
-      
+
       var defaultWidgets = _.clone(widgetDefinitions);
   
       $scope.dashboardOptions = {

@@ -47,6 +47,13 @@ describe('Directive: dtOverview', function () {
         label: 'Actual Year',
         filter: 'date',
         filterArgs: ['yyyy']
+      },
+      {
+        key: 'special'
+      },
+      {
+        key: 'special',
+        trustAsHtml: true
       }
     ];
     scope.myData = {
@@ -54,7 +61,8 @@ describe('Directive: dtOverview', function () {
       metric2: 200,
       metric3: 'three hundred',
       metric4: '$',
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      special: '<div>hello</div>'
     };
     
     element = angular.element('<div dt-overview fields="myFields" data="myData"></div>');
@@ -124,6 +132,17 @@ describe('Directive: dtOverview', function () {
         var computed = printV(5);
         expect(computed).to.equal(y + '');
       });
+
+      it('should encode htmlentities when trustAsHtml is not set to true', function() {
+        var computed = element.find('.overview-item > div.value:eq(6)').html();
+        expect(computed).to.equal('&lt;div&gt;hello&lt;/div&gt;');
+      });
+
+      it('should NOT encode htmlentities when trustAsHtml is set to true', function() {
+        var computed = element.find('.overview-item > div.value:eq(7)').html();
+        expect(computed).to.equal('<div>hello</div>');
+      });
+
     });
 
   });

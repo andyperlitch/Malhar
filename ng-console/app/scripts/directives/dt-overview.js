@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dtConsoleApp')
-  .directive('dtOverview', ['$filter',function ($filter) {
+  .directive('dtOverview', ['$filter', '$sce', function ($filter, $sce) {
 
       function link(scope, elm, attrs) {
 
@@ -24,6 +24,7 @@ angular.module('dtConsoleApp')
 
           // Get the raw value for this item
           var raw = data[field.key];
+          var computed = raw;
 
           // Check for specified filter
           if (field.filter) {
@@ -33,19 +34,19 @@ angular.module('dtConsoleApp')
             if (field.filterArgs) {
               args = args.concat(field.filterArgs);
             }
-            return $filter(field.filter).apply({}, args);
+            computed = $filter(field.filter).apply({}, args);
 
-          } 
+          }
 
           // Check if value is a formatting function
           else if (typeof field.value === 'function') {
-            return field.value(raw, scope.data)
+            computed = field.value(raw, scope.data);
           }
 
           // Otherwise just return the raw
-          return raw;
+          return field.trustAsHtml ? $sce.trustAsHtml(computed) : computed;
         }
-        
+
       }
 
       return {
