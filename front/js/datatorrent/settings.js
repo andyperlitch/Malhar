@@ -74,7 +74,7 @@ exports = module.exports = {
         ClusterMetrics           :'cluster.metrics',
         Applications             :'applications',
         Application              :'applications.:appId',
-        Operators                :'applications.:appId.operators',
+        Operators                :'applications.:appId.physicalOperators',
         Containers               :'applications.:appId.containers',
         StramEvents              :'applications.:appId.events',
         TupleRecorder            :'tupleRecorder.:startTime'
