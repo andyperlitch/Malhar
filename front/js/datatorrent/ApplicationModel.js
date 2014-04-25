@@ -232,14 +232,12 @@ var ApplicationModel = BaseModel.extend({
             if ( lcState === 'running' || lcState === 'accepted' ) {
                 updates.elapsedTime = +new Date() - 1 * this.get('startedTime');
             }
-            
             this.set(updates);
         });
         this.dataSource.subscribe(topic);
         
         // Only subscribe to operators and containers if this app is running
         var subscribeToOpsAndCtnrs = _.bind(function() {
-            
             if (this.operators) {
                 this.operators.subscribe();
             }

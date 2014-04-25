@@ -82,12 +82,13 @@ public abstract class Deduper<INPUT extends Bucketable, OUTPUT>
   protected final Map<Long, List<INPUT>> waitingEvents;
   protected Set<Integer> partitionKeys;
   protected int partitionMask;
+
   //Non check-pointed state
   protected transient final BlockingQueue<Bucket<INPUT>> fetchedBuckets;
-  private transient long currentWindow;
   private transient long sleepTimeMillis;
   private transient OperatorContext context;
   protected transient Counters counters;
+  private transient long currentWindow;
 
   public Deduper()
   {
@@ -148,6 +149,7 @@ public abstract class Deduper<INPUT extends Bucketable, OUTPUT>
   public void setup(OperatorContext context)
   {
     this.context = context;
+    this.currentWindow = context.getValue(Context.OperatorContext.ACTIVATION_WINDOW_ID);
     sleepTimeMillis = context.getValue(OperatorContext.SPIN_MILLIS);
     counters = new Counters();
     bucketManager.setBucketCounters(counters);
@@ -426,9 +428,9 @@ public abstract class Deduper<INPUT extends Bucketable, OUTPUT>
         if (os.customStats != null) {
           if (os.customStats instanceof Counters) {
             Counters cs = (Counters) os.customStats;
-            logger.debug("bucketStats {} {} {} {} {} {} {} {}", batchedOperatorStats.getOperatorId(), cs.getNumBucketsInMemory(),
+            logger.debug("bucketStats {} {} {} {} {} {} {} {} {} {}", batchedOperatorStats.getOperatorId(), cs.getNumBucketsInMemory(),
               cs.getNumDeletedBuckets(), cs.getNumEvictedBuckets(), cs.getNumEventsInMemory(), cs.getNumEventsCommittedPerWindow(),
-              cs.getNumIgnoredEvents(), cs.getNumDuplicateEvents());
+              cs.getNumIgnoredEvents(), cs.getNumDuplicateEvents(), cs.getLow(), cs.getHigh());
           }
         }
       }

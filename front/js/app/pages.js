@@ -50,7 +50,7 @@ exports = module.exports = [
     },
     {
         'name': 'WelcomePageView',
-        'routes': ['welcome'],
+        'routes': ['welcome', 'config/install-wizard'],
         'view': require('./lib/pages/WelcomePageView'),
         'paramList': [],
         'mode': 'config',
@@ -61,6 +61,23 @@ exports = module.exports = [
             },
             {
                 name: text('Installation Wizard')
+            }
+        ]
+    },
+
+    {
+        name: 'DiagnosticsPageView',
+        routes: ['config/diagnostics'],
+        view: require('./lib/pages/DiagnosticsPageView'),
+        paramList: [],
+        mode: 'config',
+        breadcrumbs: [
+            {
+                name: text('configuration'),
+                href: '#config'
+            },
+            {
+                name: text('System Diagnostics')
             }
         ]
     },
@@ -93,6 +110,22 @@ exports = module.exports = [
             }
         ]
     },
+
+    // {
+    //     name: 'ConfigPropertiesPageView',
+    //     routes: ['config/properties'],
+    //     view: require('./lib/pages/ConfigPropertiesPageView'),
+    //     mode: 'config',
+    //     breadcrumbs: [
+    //         {
+    //             name: text('configuration'),
+    //             href: '#config'
+    //         },
+    //         {
+    //             name: text('Properties')
+    //         }
+    //     ]
+    // },
 
     /**
      * OPERATIONS MODE
@@ -362,75 +395,75 @@ exports = module.exports = [
     */
     
     /** Development View */
-    {
-        'name': 'DevHomePageView',
-        'routes': ['dev'],
-        'view': require('./lib/pages/DevHomePageView'),
-        'paramList': [],
-        'mode': 'dev',
-        'breadcrumbs': [
-            {
-                name: 'development'
-            }
-        ]
-    },
+    // {
+    //     'name': 'DevHomePageView',
+    //     'routes': ['dev'],
+    //     'view': require('./lib/pages/DevHomePageView'),
+    //     'paramList': [],
+    //     'mode': 'dev',
+    //     'breadcrumbs': [
+    //         {
+    //             name: 'development'
+    //         }
+    //     ]
+    // },
     
     /** Jar File Page */
-    {
-        'name': 'JarFilePageView',
-        'routes': ['dev/jars/:fileName'],
-        'view': require('./lib/pages/JarFilePageView'),
-        'paramList': ['fileName'],
-        'mode': 'dev',
-        'breadcrumbs': [
-            {
-                name: 'development',
-                href: '#dev'
-            },
-            {
-                name: 'uploaded jars',
-                href: '#dev'
-            },
-            {
-                name: function(page, fileName) {
-                    return fileName;
-                }
-            }
-        ]
-    },
+    // {
+    //     'name': 'JarFilePageView',
+    //     'routes': ['dev/jars/:fileName'],
+    //     'view': require('./lib/pages/JarFilePageView'),
+    //     'paramList': ['fileName'],
+    //     'mode': 'dev',
+    //     'breadcrumbs': [
+    //         {
+    //             name: 'development',
+    //             href: '#dev'
+    //         },
+    //         {
+    //             name: 'uploaded jars',
+    //             href: '#dev'
+    //         },
+    //         {
+    //             name: function(page, fileName) {
+    //                 return fileName;
+    //             }
+    //         }
+    //     ]
+    // },
     
     /** Jar Application Page  (an application within a jar) */
-    {
-        'name': 'JarAppPageView',
-        'routes': ['dev/jars/:fileName/:appName'],
-        'view': require('./lib/pages/JarAppPageView'),
-        'paramList': ['fileName', 'appName'],
-        'mode': 'dev', 
-        'breadcrumbs': [
-            {
-                name: 'development',
-                href: '#dev'
-            },
-            {
-                name: 'uploaded jars',
-                href: '#dev'
-            },
-            {
-                name: function(page, fileName) {
-                    return fileName;
-                },
-                href: function(page, fileName) {
-                    return '#dev/jars/' + fileName;
-                }
-            },
-            {
-                name: function(page, fileName, appName) {
-                    return appName;
-                }
-            }
-        ]
+    // {
+    //     'name': 'JarAppPageView',
+    //     'routes': ['dev/jars/:fileName/:appName'],
+    //     'view': require('./lib/pages/JarAppPageView'),
+    //     'paramList': ['fileName', 'appName'],
+    //     'mode': 'dev', 
+    //     'breadcrumbs': [
+    //         {
+    //             name: 'development',
+    //             href: '#dev'
+    //         },
+    //         {
+    //             name: 'uploaded jars',
+    //             href: '#dev'
+    //         },
+    //         {
+    //             name: function(page, fileName) {
+    //                 return fileName;
+    //             },
+    //             href: function(page, fileName) {
+    //                 return '#dev/jars/' + fileName;
+    //             }
+    //         },
+    //         {
+    //             name: function(page, fileName, appName) {
+    //                 return appName;
+    //             }
+    //         }
+    //     ]
         
-    },
+    // },
     
     /** Add Alert Template View 
     {

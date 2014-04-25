@@ -1,7 +1,5 @@
-package com.datatorrent.lib.datamodel.metric;
-
 /*
- * Copyright (c) 2014 DataTorrent, Inc. ALL Rights Reserved.
+ * Copyright (c) 2013 DataTorrent, Inc. ALL Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +13,26 @@ package com.datatorrent.lib.datamodel.metric;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+var _ = require('underscore');
+var Notifier = DT.lib.Notifier;
+var kt = require('knights-templar');
+var BaseView = require('bassview');
 
-import javax.annotation.Nonnull;
+var ConfigPageView = BaseView.extend({
 
-/**
- * <p>Metric interface.</p>
- *
- * @param <INPUT> input type
- * @param <OUTPUT> output type
- * @since 0.9.4
- */
-public interface Metric<INPUT,OUTPUT>
-{
-  /**
-   * @param destination
-   * @param event
-   */
-  void aggregate(@Nonnull OUTPUT destination, @Nonnull INPUT event);
-}
+    initialize: function(options) {
+
+    },
+
+    render: function() {
+        var json = {}
+        var html = this.template(json);
+        this.$el.html(html);
+        return this;
+    },
+
+    template: kt.make(__dirname+'/ConfigPageView.html')
+
+});
+
+exports = module.exports = ConfigPageView;

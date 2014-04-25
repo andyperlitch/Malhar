@@ -64,8 +64,7 @@ var AppInstancePageView = BasePageView.extend({
         // Explicitly set operator and container collections
         this.model.setOperators([]);
         this.model.setContainers([]);
-        this.model.subscribe();
-
+        
         // Load the model
         var promise = this.model.fetch();
         // Set flag: true when app has been loaded, false otherwise
@@ -73,6 +72,7 @@ var AppInstancePageView = BasePageView.extend({
         this.userDashMgr = false;
 
         promise.always(_.bind(function() {
+            this.model.subscribe();
             this.appHasLoaded = true;            
             this.onAppFetch(options.pageParams);
             this.userDashMgr = true;

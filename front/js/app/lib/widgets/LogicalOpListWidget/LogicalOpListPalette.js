@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.datatorrent.lib.database;
+var BaseView = DT.lib.ListPalette;
 
-/**
- * <br>API of a DB Connection.</br>
- *
- * @since 0.9.1
- */
-public interface DBConnector
-{
-  public void setupDbConnection();
-  public void teardownDbConnection();
-}
+var LogicalOpListPalette = BaseView.extend({
+
+    events: {
+        'click .inspectItem': 'inspectItem'
+    },
+
+    inspectItem: function(e) {
+        var selected = this.getSelected()[0];
+        this.nav.go('ops/apps/' + this.appId + '/logicalOperators/' + selected.get('logicalName'));
+    }
+
+
+});
+
+exports = module.exports = LogicalOpListPalette;
