@@ -15,6 +15,7 @@ var StramEventCollection = BaseCollection.extend({
         this.dataSource.subscribe(topic);
     },
     model: StramEventModel,
+    responseTransform: 'events',
     url: function() {
         return this.resourceURL('StramEvent', {
             appId: this.appId
