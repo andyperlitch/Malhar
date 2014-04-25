@@ -18,8 +18,10 @@ var _ = require('underscore');
 var kt = require('knights-templar');
 var BaseView = DT.lib.WidgetView;
 var StramEventCollection = DT.lib.StramEventCollection;
-var Tabled = DT.lib.Tabled;
-var columns = require('./columns');
+
+var EventList = require('./EventList');
+var EventViewer = require('./EventViewer');
+
 /**
  * StramEventsWidget
  * 
@@ -37,25 +39,48 @@ var StramEventsWidget = BaseView.extend({
         });
         this.collection.subscribe();
 
-        this.subview('table', new Tabled({
-            collection: this.collection,
-            columns: columns
+        this.subview('list', new EventList({
+            collection: this.collection
         }));
+        this.subview('viewer', new EventViewer({
+            collection: this.collection
+        }));
+        
+        // TODO: load from state
+        this.viewMode = 'tail';
+
+        this.collection.fetch({
+            data: {
+                from: Date.now() - 600000,
+                to: Date.now()
+            }
+        });
+
     },
     
     html: function() {
-        
-        var html = '';
-        
-        // generate markup here
-        
+        var json = {
+            viewMode: this.viewMode
+        };
+        var html = this.template(json);
         return html;
     },
     
     assignments: {
-        
-        // assign subviews here
-        
+        '.event-list': 'list',
+        '.event-viewer': 'viewer'
+    },
+
+    events: {
+        'change [name="viewMode"]': 'onViewModeChange'
+    },
+
+    onViewModeChange: function(evt) {
+        var newMode = this.$('form [name="viewMode"]:checked').val();
+        if (newMode !== this.viewMode) {
+            this.viewMode = newMode;
+            this.renderContent();
+        }
     },
     
     template: kt.make(__dirname+'/StramEventsWidget.html','_')

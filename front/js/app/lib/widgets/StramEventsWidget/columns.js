@@ -1,3 +1,5 @@
 exports = module.exports = [
-    { id: 'type' }
+    { id: 'timestamp', key: 'timestamp' },
+    { id: 'type', key: 'type' },
+    { id: 'data', key: 'data' }
 ];
