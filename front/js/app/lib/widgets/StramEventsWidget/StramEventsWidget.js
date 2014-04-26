@@ -40,7 +40,8 @@ var StramEventsWidget = BaseView.extend({
         this.collection.subscribe();
 
         this.subview('list', new EventList({
-            collection: this.collection
+            collection: this.collection,
+            parent: this
         }));
         this.subview('viewer', new EventViewer({
             collection: this.collection

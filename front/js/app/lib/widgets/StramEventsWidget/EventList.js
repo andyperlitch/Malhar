@@ -3,7 +3,7 @@ var EventItem = require('./EventItem');
 var EventList = BaseView.extend({
 
     initialize: function(options) {
-        console.log('init eventlist');
+        this.parent = options.parent;
         this.listenTo(this.collection, 'add', this.addOne);
     },
 
@@ -13,12 +13,18 @@ var EventList = BaseView.extend({
     },
 
     addOne: function(model) {
-        console.log('addOne');
         var itemView = new EventItem({
-            model: model
+            model: model,
+            collection: this.collection
         });
         itemView.listenTo(this, 'clean_up', itemView.remove);
-        this.$el.prepend(itemView.render().el);
+        if (this.parent.viewMode === 'tail') {
+            itemView.$el.css('display', 'none');
+            this.$el.prepend(itemView.render().el);
+            itemView.$el.slideDown('fast');
+        } else {
+            this.$el.prepend(itemView.render().el);
+        }
     }
 
 });
